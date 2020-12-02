@@ -1,19 +1,18 @@
-require_relative "password_validator"
-
 class PasswordListValidator
   LINE_REGEX = /(\d+)-(\d+) ([a-z]): ([a-z]+)$/
 
-  PasswordInformation = Struct.new(:min_instances, :max_instances, :letter, :password, keyword_init: true)
+  PasswordInformation = Struct.new(:first_digit, :second_digit, :letter, :password, keyword_init: true)
 
-  def initialize(list_lines)
+  def initialize(list_lines, validator_class)
     @parsed_lines = list_lines.map { |line| parse_list_line(line) }
+    @validator_class = validator_class
   end
 
   def count_valids
     @parsed_lines.count do |password_information|
-      validator = PasswordValidator.new(
-        min_instances: password_information.min_instances,
-        max_instances: password_information.max_instances,
+      validator = @validator_class.new(
+        first_digit: password_information.first_digit,
+        second_digit: password_information.second_digit,
         validated_letter: password_information.letter
       )
       validator.valid?(password_information.password)
@@ -23,10 +22,10 @@ class PasswordListValidator
   private
 
   def parse_list_line(line)
-    minimum, maximum, letter, password = line.match(LINE_REGEX).captures
+    first_digit, second_digit, letter, password = line.match(LINE_REGEX).captures
     PasswordInformation.new(
-      min_instances: minimum,
-      max_instances: maximum,
+      first_digit: first_digit,
+      second_digit: second_digit,
       letter: letter,
       password: password,
     )

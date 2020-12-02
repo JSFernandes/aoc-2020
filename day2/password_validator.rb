@@ -1,8 +1,8 @@
 class PasswordValidator
-  def initialize(validated_letter:, min_instances:, max_instances:)
+  def initialize(validated_letter:, first_digit:, second_digit:)
     @validated_letter = validated_letter
-    @min_instances = min_instances.to_i
-    @max_instances = max_instances.to_i
+    @min_instances = first_digit.to_i
+    @max_instances = second_digit.to_i
   end
 
   def valid?(password)
