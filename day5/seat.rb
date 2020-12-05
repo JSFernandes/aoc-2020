@@ -1,6 +1,7 @@
 class Seat
   MAX_ROW = 127.freeze
   MAX_COLUMN = 7.freeze
+  NUM_COLUMNS = (MAX_COLUMN + 1).freeze
 
   def initialize(seat_string)
     @row_string = seat_string[0..6]
@@ -32,7 +33,7 @@ class Seat
   end
 
   def seat_id
-    row * 8 + column
+    row * NUM_COLUMNS + column
   end
 
   private
