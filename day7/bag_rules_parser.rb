@@ -18,7 +18,7 @@ class BagRulesParser
     bag_rule_parts = bag_rule_contents.split(",")
     bag_rule_parts.map do |rule_part|
       quantity, color = rule_part.match(BAG_RULE_PART_REGEX).captures
-      ContentRule.new(quantity, color)
+      ContentRule.new(quantity.to_i, color)
     end
   end
 end
