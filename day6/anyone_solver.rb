@@ -1,4 +1,4 @@
-class Solver
+class AnyoneSolver
   def initialize(groups_answers)
     @groups_answers = groups_answers
   end

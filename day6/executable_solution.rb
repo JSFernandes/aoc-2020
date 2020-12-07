@@ -1,6 +1,8 @@
-require_relative "solver"
+require_relative "anyone_solver"
+require_relative "everyone_solver"
 
 input_array = File.read("./input").split("\n\n")
-solver = Solver.new(input_array)
-part1_solution = solver.count_answers
+part1_solution = AnyoneSolver.new(input_array).count_answers
 puts "Part1 solution: #{part1_solution}"
+part2_solution = EveryoneSolver.new(input_array).count_answers
+puts "Part2 solution: #{part2_solution}"
